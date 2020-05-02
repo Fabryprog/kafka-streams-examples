@@ -1,4 +1,4 @@
-package it.fabryprog.kafka.streaming.example.trasformation.stateless;
+package it.fabryprog.kafka.streaming.example.transformation.stateless;
 
 import it.fabryprog.kafka.streaming.example.AbstractTest;
 import it.fabryprog.kafka.streaming.example.TestInterface;

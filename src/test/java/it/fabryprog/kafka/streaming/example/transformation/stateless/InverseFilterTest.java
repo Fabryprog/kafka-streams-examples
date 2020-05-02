@@ -1,4 +1,4 @@
-package it.fabryprog.kafka.streaming.example.trasformation.stateless;
+package it.fabryprog.kafka.streaming.example.transformation.stateless;
 
 import it.fabryprog.kafka.streaming.example.AbstractTest;
 import it.fabryprog.kafka.streaming.example.TestInterface;
@@ -25,11 +25,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
  *  - KTable → KTable
  *
  * Description:
- * Evaluates a boolean function for each element and retains those for which the function returns true.
+ * Evaluates a boolean function for each element and drops those for which the function returns true.
  *
  */
 
-public class FilterTest extends AbstractTest implements TestInterface {
+public class InverseFilterTest extends AbstractTest implements TestInterface {
 
     @Test
     public void shouldTest() {
@@ -37,9 +37,9 @@ public class FilterTest extends AbstractTest implements TestInterface {
                 100, 200, 500, 1000, 9000, 100000
         );
 
-        // Step 0: Expected output is all numbers less than 500 (inclusive)
+        // Step 0: Expected output is all numbers IS NOT less than 500 (inclusive)
         final List<Integer> expectedOutput = Arrays.asList(
-                100, 200, 500
+                1000, 9000, 100000
         );
 
         try (final TopologyTestDriver testDriver = new TopologyTestDriver(builder.build(), configuration)) {
@@ -63,7 +63,7 @@ public class FilterTest extends AbstractTest implements TestInterface {
     public StreamsBuilder createTopology() {
         final StreamsBuilder builder = new StreamsBuilder();
         final KStream<String, Integer> input = builder.stream(inputTopic, Consumed.with(Serdes.String(), Serdes.Integer()));
-        KStream<String, Integer> filter = input.filter(
+        KStream<String, Integer> filter = input.filterNot(
                 (key, value) -> value <= 500
         );
         // starts with 'B'
