@@ -66,7 +66,7 @@ public class InverseFilterTest extends AbstractTest implements TestInterface {
         KStream<String, Integer> filter = input.filterNot(
                 (key, value) -> value <= 500
         );
-        // starts with 'B'
+
         filter.to(outputTopic, Produced.with(Serdes.String(), Serdes.Integer()));
         return builder;
     }
