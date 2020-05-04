@@ -7,6 +7,7 @@ import org.apache.kafka.streams.*;
 import org.apache.kafka.streams.kstream.*;
 import org.junit.Test;
 
+import java.security.KeyPair;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,10 +44,11 @@ public class GroupByKeyTest extends AbstractTest implements TestInterface {
         );
 
         // Step 0: Expected output is the sum of values with same key
-        final List<KeyValue<String, Integer>> expectedOutput = Arrays.asList(
-                KeyValue.pair("STAND-A", 100),
-                KeyValue.pair("STAND-B", 100),
-                KeyValue.pair("STAND-C", 10)
+        final List<Integer> expectedOutput = Arrays.asList(
+                100,
+                50,
+                10,
+                100
         );
 
         try (final TopologyTestDriver testDriver = new TopologyTestDriver(builder.build(), configuration)) {

@@ -35,6 +35,7 @@ public abstract class AbstractTest implements TestInterface {
         streamsConfiguration.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "dummy config");
         // Use a temporary directory for storing state, which will be automatically removed after the test.
         streamsConfiguration.put(StreamsConfig.STATE_DIR_CONFIG, TestUtils.tempDirectory().getAbsolutePath());
+
         return streamsConfiguration;
     }
 }

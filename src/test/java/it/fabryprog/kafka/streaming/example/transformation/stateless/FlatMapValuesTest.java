@@ -32,13 +32,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class FlatMapValuesTest  extends AbstractTest implements TestInterface {
 
-    private Long instant;
-
-    @Before
-    public void init() {
-        instant = Instant.now().getEpochSecond();
-    }
-
     @Test
     public void shouldTest() {
         final List<String> inputValues = Arrays.asList(
@@ -47,11 +40,11 @@ public class FlatMapValuesTest  extends AbstractTest implements TestInterface {
 
         // Step 0: Expected output is all words (uppercase) with same key (instant)
         final List<KeyValue<Long, String>> expectedOutput = Arrays.asList(
-                new KeyValue<>(instant, "A"),
-                new KeyValue<>(instant, "LEGEND"),
-                new KeyValue<>(instant, "IN"),
-                new KeyValue<>(instant, "THE"),
-                new KeyValue<>(instant, "MAKING")
+                new KeyValue<>(null, "A"),
+                new KeyValue<>(null, "LEGEND"),
+                new KeyValue<>(null, "IN"),
+                new KeyValue<>(null, "THE"),
+                new KeyValue<>(null, "MAKING")
         );
 
         try (final TopologyTestDriver testDriver = new TopologyTestDriver(builder.build(), configuration)) {
