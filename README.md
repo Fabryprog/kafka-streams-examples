@@ -1,5 +1,7 @@
 # Kafka Streams Examples
 
+[![Fabryprog](https://circleci.com/gh/Fabryprog/kafka-streams-examples.svg?style=shield)](<LINK>)
+
 This repo contains many JUNIT test classes about Kafka Streaming transformations
 
 ## Contents
