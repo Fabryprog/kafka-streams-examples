@@ -17,36 +17,38 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Transformation:
  * - KStream → KGroupedStream
+ * - KTable → KGroupedTable
  *
  * Description:
- *  Groups the records by the existing key.
+ *  Groups the records by a new key, which may be of a different key type. When grouping a table, you may also specify a new value and value type.
+ *  groupBy is a shorthand for selectKey(...).groupByKey(). (KStream details, KTable details)
  *  Grouping is a prerequisite for aggregating a stream or a table and ensures that data is properly partitioned (“keyed”) for subsequent operations.
- *
- *  When to set explicit SerDes: Variants of groupByKey exist to override the configured default SerDes of your application,
- *  which you must do if the key and/or value types of the resulting KGroupedStream do not match the configured default SerDes.
+ *  When to set explicit SerDes: Variants of groupBy exist to override the configured default SerDes of your application,
+ *  which you must do if the key and/or value types of the resulting KGroupedStream or KGroupedTable do not match the configured default SerDes.
  *
  * Notes:
- *  Causes data re-partitioning if and only if the stream was marked for re-partitioning.
- *  groupByKey is preferable to groupBy because it re-partitions data only if the stream was already marked for re-partitioning.
- *  However, groupByKey does not allow you to modify the key or key type like groupBy does.
+ *  Always causes data re-partitioning: groupBy always causes data re-partitioning.
+ *  If possible use groupByKey instead, which will re-partition data only if required.
  */
 
-public class GroupByKeyTest extends AbstractTest implements TestInterface {
+public class GroupByTest extends AbstractTest implements TestInterface {
 
     @Test
     public void shouldTest() {
         final List<KeyValue<String, Integer>> inputValues = Arrays.asList(
-                KeyValue.pair("STAND-A", 100),
-                KeyValue.pair("STAND-B", 50),
-                KeyValue.pair("STAND-C", 10),
-                KeyValue.pair("STAND-B", 50)
+                KeyValue.pair("STAND-A 1", 100),
+                KeyValue.pair("STAND-B 1", 50),
+                KeyValue.pair("STAND-C 1", 10),
+                KeyValue.pair("STAND-A 2", 50),
+                KeyValue.pair("STAND-B 2", 40),
+                KeyValue.pair("STAND-C 2", 20)
         );
 
-        // Step 0: Expected output is the sum of values with same key
+        // Step 0: Expected output is the sum of values with same STAND
         final List<KeyValue<String, Integer>> expectedOutput = Arrays.asList(
-                KeyValue.pair("STAND-A", 100),
-                KeyValue.pair("STAND-B", 100),
-                KeyValue.pair("STAND-C", 10)
+                KeyValue.pair("STAND-A", 150),
+                KeyValue.pair("STAND-B", 90),
+                KeyValue.pair("STAND-C", 30)
         );
 
         try (final TopologyTestDriver testDriver = new TopologyTestDriver(builder.build(), configuration)) {
@@ -70,13 +72,15 @@ public class GroupByKeyTest extends AbstractTest implements TestInterface {
     public StreamsBuilder createTopology() {
         final StreamsBuilder builder = new StreamsBuilder();
         final KStream<String, Integer> input = builder.stream(inputTopic, Consumed.with(Serdes.String(), Serdes.Integer()));
-        KTable<String, Integer> groupByKeyAndReduce = input.groupByKey().reduce(
+        KTable<String, Integer> groupByAndReduce = input.groupBy(
+            (key, value) -> key.split(" ")[0]
+        ).reduce(
             (v1, v2) -> {
                 return v1 + v2;
-           }
+            }
         );
 
-        groupByKeyAndReduce.toStream().to(outputTopic, Produced.with(Serdes.String(), Serdes.Integer()));
+        groupByAndReduce.toStream().to(outputTopic, Produced.with(Serdes.String(), Serdes.Integer()));
         return builder;
     }
 }
