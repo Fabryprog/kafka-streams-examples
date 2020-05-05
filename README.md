@@ -11,6 +11,8 @@ This repo contains many JUNIT test classes about Kafka Streaming transformations
  - [FlatMap](https://github.com/Fabryprog/kafka-streams-examples/blob/master/src/test/java/it/fabryprog/kafka/streaming/example/transformation/stateless/FlatMapTest.java)
  - [FlatMapValue](https://github.com/Fabryprog/kafka-streams-examples/blob/master/src/test/java/it/fabryprog/kafka/streaming/example/transformation/stateless/FlatMapValuesTest.java)
  - [GroupByKey](https://github.com/Fabryprog/kafka-streams-examples/blob/master/src/test/java/it/fabryprog/kafka/streaming/example/transformation/stateless/GroupByKeyTest.java)
+ - [GroupBy](https://github.com/Fabryprog/kafka-streams-examples/blob/master/src/test/java/it/fabryprog/kafka/streaming/example/transformation/stateless/GroupByTest.java)
+ - [GroupBy](https://github.com/Fabryprog/kafka-streams-examples/blob/master/src/test/java/it/fabryprog/kafka/streaming/example/transformation/stateless/GroupByTest.java)
 
 
 [Confluent Documentation](https://docs.confluent.io/current/streams/developer-guide/dsl-api.html#streams-developer-guide-dsl-transformations-stateless)
