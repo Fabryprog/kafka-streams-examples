@@ -12,10 +12,16 @@ This repo contains many JUNIT test classes about Kafka Streaming transformations
  - [Inverse Filter](https://github.com/Fabryprog/kafka-streams-examples/blob/master/src/test/java/it/fabryprog/kafka/streaming/example/transformation/stateless/InverseFilterTest.java)
  - [FlatMap](https://github.com/Fabryprog/kafka-streams-examples/blob/master/src/test/java/it/fabryprog/kafka/streaming/example/transformation/stateless/FlatMapTest.java)
  - [FlatMapValue](https://github.com/Fabryprog/kafka-streams-examples/blob/master/src/test/java/it/fabryprog/kafka/streaming/example/transformation/stateless/FlatMapValuesTest.java)
+ - Foreach
  - [GroupByKey](https://github.com/Fabryprog/kafka-streams-examples/blob/master/src/test/java/it/fabryprog/kafka/streaming/example/transformation/stateless/GroupByKeyTest.java)
  - [GroupBy](https://github.com/Fabryprog/kafka-streams-examples/blob/master/src/test/java/it/fabryprog/kafka/streaming/example/transformation/stateless/GroupByTest.java)
+ - Cogroup
  - [MapTest](https://github.com/Fabryprog/kafka-streams-examples/blob/master/src/test/java/it/fabryprog/kafka/streaming/example/transformation/stateless/MapTest.java)
  - [MapValuesTest](https://github.com/Fabryprog/kafka-streams-examples/blob/master/src/test/java/it/fabryprog/kafka/streaming/example/transformation/stateless/MapValuesTest.java)
+ - Peek
+ - Print
+ - [SelectKey](https://github.com/Fabryprog/kafka-streams-examples/blob/master/src/test/java/it/fabryprog/kafka/streaming/example/transformation/stateless/SelectKeyTest.java)
+ - TableToStream 
 
-
+ 
 [Confluent Documentation](https://docs.confluent.io/current/streams/developer-guide/dsl-api.html#streams-developer-guide-dsl-transformations-stateless)
